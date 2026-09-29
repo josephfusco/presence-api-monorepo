@@ -28,9 +28,15 @@ add_action(
 
 		require_once __DIR__ . '/scenes.php';
 		require_once __DIR__ . '/class-wp-presence-scene-actor.php';
+		require_once __DIR__ . '/debugger.php';
 
 		add_action( 'wp_presence_scene_sweep', 'wp_presence_scene_sweep' );
 		add_filter( 'wp_authenticate_user', 'wp_presence_scene_authenticate' );
+
+		add_filter( 'wp_presence_debugger_indicators', 'wp_presence_scene_debugger_indicators' );
+		add_action( 'wp_presence_debugger_menu', 'wp_presence_scene_debugger_menu' );
+		add_action( 'admin_enqueue_scripts', 'wp_presence_scene_debugger_assets', 11 );
+		add_action( 'wp_enqueue_scripts', 'wp_presence_scene_debugger_assets', 11 );
 
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			require_once __DIR__ . '/class-wp-presence-scene-cli-command.php';
